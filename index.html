@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simón Ferrer - Escritor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #000;
+            color: #e0e0e0;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+            opacity: 0;
+            animation: navFadeIn 1s ease 2s forwards;
+        }
+
+        @keyframes navFadeIn {
+            to { opacity: 1; }
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #daa520;
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            font-weight: 300;
+        }
+
+        nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #daa520;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #daa520;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.3);
+            padding-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: #b8860b;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .phrase-1,
+        .phrase-2 {
+            position: absolute;
+            font-size: 2rem;
+            color: #c0c0c0;
+            font-style: italic;
+            font-weight: normal;
+            text-shadow: 0 0 20px rgba(192, 192, 192, 0.8);
+            opacity: 0;
+            max-width: 90%;
+            padding: 0 2rem;
+        }
+
+        .phrase-1 {
+            animation: phraseReveal1 3s ease 0.5s forwards, phraseFadeOut 1s ease 8s forwards;
+        }
+
+        .phrase-2 {
+            animation: phraseReveal2 3s ease 4s forwards, phraseFadeOut 1s ease 8s forwards;
+        }
+
+        @keyframes phraseReveal1 {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(-30px); }
+        }
+
+        @keyframes phraseReveal2 {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(30px); }
+        }
+
+        @keyframes phraseFadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .seal-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: sealReveal 2s ease 9.5s forwards;
+        }
+
+        @keyframes sealReveal {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .seal-image {
+            width: 400px;
+            height: 400px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 40px rgba(218, 165, 32, 0.8));
+            animation: sealPulse 3s ease-in-out infinite 11.5s;
+        }
+
+        @keyframes sealPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 40px rgba(218, 165, 32, 0.8)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 60px rgba(218, 165, 32, 1)); }
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            animation: particlesFade 1s ease 10s forwards;
+        }
+
+        @keyframes particlesFade {
+            to { opacity: 1; }
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(218, 165, 32, 0.6);
+            border-radius: 50%;
+            animation: particleFall 4s linear infinite;
+        }
+
+        @keyframes particleFall {
+            0% { transform: translateY(-100vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .final-text {
+            position: absolute;
+            bottom: 20%;
+            font-size: 2.5rem;
+            color: #c0c0c0;
+            font-style: italic;
+            font-weight: bold;
+            opacity: 0;
+            text-shadow: 0 0 20px rgba(192, 192, 192, 0.8);
+            animation: finalTextReveal 2s ease 10.5s forwards;
+        }
+
+        @keyframes finalTextReveal {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        #sobre-mi,
+        #libros,
+        #booktrailers,
+        #novedades,
+        #contacto {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+        }
+
+        .author-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .author-name {
+            font-size: 4rem;
+            color: #daa520;
+            margin-bottom: 1rem;
+            letter-spacing: 4px;
+            font-weight: 300;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #888;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .book-card {
+            background: rgba(30, 30, 30, 0.6);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .book-card:hover {
+            border-color: #daa520;
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 500px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .book-cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .book-title {
+            color: #daa520;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .book-subtitle {
+            color: #888;
+            font-size: 1rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .book-description {
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .bio-content {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+
+        .blog-entry {
+            background: rgba(30, 30, 30, 0.6);
+            border-left: 3px solid #daa520;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .blog-date {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* SECCIÓN SUSCRIPCIÓN */
+        .subscription-box {
+            background: rgba(218, 165, 32, 0.05);
+            border: 2px solid rgba(218, 165, 32, 0.4);
+            padding: 3rem;
+            margin-top: 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .password-phrase {
+            font-size: 1.4rem;
+            color: #daa520;
+            font-style: italic;
+            margin: 2rem 0;
+            line-height: 1.6;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+        }
+
+        .subscription-info {
+            color: #999;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: #daa520;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            color: #e0e0e0;
+            font-size: 1rem;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #daa520;
+            box-shadow: 0 0 10px rgba(218, 165, 32, 0.2);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background: #daa520;
+            color: #0f0f0f;
+            padding: 1rem 3rem;
+            border: none;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #b8860b;
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 2rem;
+            color: #888;
+        }
+
+        .contact-info a {
+            color: #daa520;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .booktrailers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .video-container {
+            position: relative;
+            background: rgba(30, 30, 30, 0.6);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .video-container:hover {
+            border-color: #daa520;
+            box-shadow: 0 0 30px rgba(218, 165, 32, 0.3);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            border: 2px solid rgba(218, 165, 32, 0.5);
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.3) 0%, rgba(26, 26, 26, 0.3) 100%);
+            z-index: 10;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-wrapper.playing .video-overlay {
+            opacity: 0;
+        }
+
+        .camera-icon {
+            width: 120px;
+            height: 120px;
+            fill: #daa520;
+            filter: drop-shadow(0 0 30px rgba(218, 165, 32, 0.8)) drop-shadow(0 0 60px rgba(218, 165, 32, 0.5));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .video-title {
+            text-align: center;
+            color: #daa520;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .video-description {
+            text-align: center;
+            color: #999;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(218, 165, 32, 0.2);
+            border: 1px solid #daa520;
+            color: #daa520;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .author-name {
+                font-size: 2.5rem;
+            }
+            
+            .phrase-1,
+            .phrase-2 {
+                font-size: 1.3rem;
+            }
+
+            .final-text {
+                font-size: 1.5rem;
+            }
+
+            .seal-image {
+                width: 250px;
+                height: 250px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .book-grid,
+            .booktrailers-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .subscription-box {
+                padding: 2rem 1rem;
+            }
+
+            .password-phrase {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#sobre-mi">Sobre Mí</a></li>
+            <li><a href="#libros">Libros</a></li>
+            <li><a href="#booktrailers">Booktrailers</a></li>
+            <li><a href="#novedades">Novedades</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <section id="inicio" class="hero">
+        <div class="phrase-1">
+            En los márgenes de lo imposible habitan historias demasiado incómodas
+        </div>
+        <div class="phrase-2">
+            ...y algunas verdades solo pueden ser asumidas por unos pocos
+        </div>
+
+        <div class="seal-container">
+            <div class="particles" id="particlesContainer"></div>
+            <img src="https://i.ibb.co/tT2BHHvB/Phoenix-10-Photorealistic-wax-seal-stamp-with-SF-letters-isola-2.jpg" alt="Sello Simón Ferrer" class="seal-image">
+            <div class="final-text">¿eres tú uno de ellos?</div>
+        </div>
+    </section>
+
+    <section id="sobre-mi">
+        <h2>Sobre Mí</h2>
+        <div class="author-section">
+            <h1 class="author-name">SIMÓN FERRER</h1>
+            <p class="tagline">Ciencia Ficción Especulativa... ¿o no?</p>
+        </div>
+        <div class="bio-content">
+            <p>Nacido a principios de los ochenta en el levante español, me considero un individuo poco arraigado al nivel de consumo de todo aquello que se define y defiende por la sociedad "avanzada". Siempre me atrajo la lectura como medio de distracción y entretenimiento, hasta que se apoderó de mí la necesidad de profundizar en conceptos y contextos poco habituales que desmantelan el relato oficial a nivel político, social, económico, científico y espiritual. No me considero un negacionista per se, pero sí un crítico profundo, un desconfiado de aquello que seduce y moviliza a las masas cual rebaño.</p>
+            
+            <p>Un buen día decidí sentarme y escribir una historia que rondaba mi cabeza: una narración disfrazada de novela juvenil con un poso de transformación e introspección. La droga que emerge en tu psique cuando dedicas tiempo a aquello que te genera paz me capturó y me secuestró. Desde entonces escribo e investigo, tomo notas en folios con ideas diversas casi a diario, diseño historias y personajes hasta que algo me convence y desarrollo narrativas que considero atractivas y profundas.</p>
+            
+            <p>Mi biografía personal no tiene nada especial que destacar. Me limito a intentar ser un buen hijo, padre, esposo, hermano, amigo y profesional. Más allá de esta obviedad en la que todos estamos inmersos, todo lo que pueda exponer de mí es pura especulación subjetiva. Eso sí, como individuo que escribe y desarrolla narrativas para libros —que no escritor— me gustaría alcanzar el objetivo de que todo aquel que lea algo con mi sello personal no quede indiferente. El lacre con el que me gustaría acuñar mis narraciones se limita a ser lo suficientemente atractivo como para formar parte de la estantería o biblioteca de unos pocos. Porque si fuese atractivo para muchos, tendría que empezar a replantearme qué estoy haciendo mal si soy capaz de seducir y movilizar a las masas cual rebaño.</p>
+        </div>
+    </section>
+
+    <section id="libros">
+        <h2>Libros</h2>
+        <div class="book-grid">
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://i.ibb.co/dyqtK4C/portada-homoexcelsium.jpg" alt="Portada Homoexcelsium" class="book-cover-image">
+                </div>
+                <h3 class="book-title">Homoexcelsium</h3>
+                <p class="book-subtitle">"el transhumanismo exigirá tiempos de (r)evolución"</p>
+                <p class="book-description">Una historia sobre jóvenes excepcionales, individuos en busca de la excelencia existencial que descubren ser muy diferentes al homo sapiens común. ¿Cómo conecta todo ello con el transhumanismo? ¿Qué trampa oculta el avance tecnológico contra la concepción del desarrollo humano con la vista puesta hacia adentro en vez de hacia fuera? Eso es algo que deberás descubrir tú mismo.</p>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://i.ibb.co/Vc2s8fJN/Default-Debemos-escribir-en-el-margen-inferior-ocupando-toda-l-0.jpg" alt="Portada Septem Peccata" class="book-cover-image">
+                </div>
+                <h3 class="book-title">Septem Peccata</h3>
+                <p class="book-subtitle">"donde muere el alma y nace la máquina"</p>
+                <p class="book-description">Un escritor descubre una casa comunal en mitad de un páramo donde lo artesanal y la tecnología punta coexisten en un equilibrio casi perfecto. No obstante, esa comuna esconde secretos y conocimientos futuros —o pasados— que él deberá ir desangrando. La era de la tecnología nos inundará con una versión mucho más sutil y peligrosa de los siete pecados capitales que la era analógica. La pregunta es: ¿dónde muere el alma y nace la máquina?</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="booktrailers">
+        <h2>Booktrailers</h2>
+        <div class="booktrailers-grid">
+            <div class="video-container">
+                <div class="video-wrapper" id="videoWrapper1">
+                    <div class="video-overlay">
+                        <svg class="camera-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2z"/>
+                        </svg>
+                    </div>
+                    <video id="booktrailerVideo1" controls>
+                        <source src="https://res.cloudinary.com/dwkcv2dan/video/upload/v1760863443/BOOKTRAILER_HomoExcelsium_ALTA_CALIDAD_cppe2t.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de vídeo.
+                    </video>
+                </div>
+                <h3 class="video-title">Homoexcelsium</h3>
+                <p class="video-description">Descubre el universo de Homoexcelsium</p>
+            </div>
+
+            <div class="video-container">
+                <div class="video-wrapper" id="videoWrapper2">
+                    <div class="video-overlay">
+                        <svg class="camera-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2z"/>
+                        </svg>
+                    </div>
+                    <video id="booktrailerVideo2" controls>
+                        <source src="https://res.cloudinary.com/dc7zkfyor/video/upload/v1761129061/2025-10-22_11-50-24_o2pqqo.mp4" type="video/mp4">
+                        Tu navegador no soporta la reproducción de vídeo.
+                    </video>
+                </div>
+                <h3 class="video-title">Septem Peccata</h3>
+                <p class="video-description">Los siete mandamientos del transhumanismo</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="novedades">
+        <h2>Novedades</h2>
+        <div class="blog-entry">
+            <p class="blog-date">Octubre 2025</p>
+            <h3>Bienvenidos a mi espacio digital</h3>
+            <p>Después de tres años desde la publicación de Homoexcelsium, me complace compartir que Septem Peccata ya está terminado. Esta nueva obra profundiza en territorios inexplorados de la conciencia humana, explorando el conflicto entre la evolución espiritual y la tentación del transhumanismo deshumanizador.</p>
+            <p>En las próximas semanas iré compartiendo avances, reflexiones sobre el proceso creativo y algunos fragmentos que adelantan lo que está por venir. Este espacio será el punto de encuentro para todos aquellos que buscan entretenimiento con sustancia, historias que desafían, desafinan y transforman.</p>
+        </div>
+
+        <div class="subscription-box">
+            <h3>Únete al círculo interior</h3>
+            <p class="subscription-info">Si deseas recibir actualizaciones exclusivas, fragmentos inéditos y reflexiones que no comparto en ningún otro lugar, escríbeme incluyendo esta frase:</p>
+            <p class="password-phrase">"La excelencia tiene un precio, y entre el bien y el mal, elijo ser humano"</p>
+            <p class="subscription-info">Solo aquellos que compartan esta visión formarán parte de esta comunidad selecta.</p>
+            <form id="subscriptionForm">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Frase contraseña</label>
+                    <input type="text" name="password" placeholder="Escribe la frase exacta" required>
+                </div>
+                <button type="submit">Solicitar acceso</button>
+            </form>
+            <div class="success-message" id="subscriptionSuccess">
+                ¡Gracias! Tu solicitud ha sido enviada. Pronto recibirás noticias.
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <div class="contact-form">
+            <p style="text-align: center; margin-bottom: 2rem;">¿Quieres compartir tus reflexiones, comentarios o simplemente conectar? Escríbeme.</p>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Mensaje</label>
+                    <textarea name="mensaje" required></textarea>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+            <div class="success-message" id="contactSuccess">
+                ¡Mensaje enviado! Te responderé pronto.
+            </div>
+            <div class="contact-info">
+                <p style="margin-top: 2rem;">También puedes escribirme directamente a:<br>
+                <a href="mailto:simonferrer@tutanota.com">simonferrer@tutanota.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Crear partículas
+        const particlesContainer = document.getElementById('particlesContainer');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 4 + 's';
+            particle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Manejar reproducción de videos
+        const videoWrappers = document.querySelectorAll('.video-wrapper');
+        videoWrappers.forEach(wrapper => {
+            const video = wrapper.querySelector('video');
+            video.addEventListener('play', () => {
+                wrapper.classList.add('playing');
+            });
+            video.addEventListener('pause', () => {
+                wrapper.classList.remove('playing');
+            });
+            video.addEventListener('ended', () => {
+                wrapper.classList.remove('playing');
+            });
+        });
+
+        // Formulario de suscripción
+        const subscriptionForm = document.getElementById('subscriptionForm');
+        const subscriptionSuccess = document.getElementById('subscriptionSuccess');
+
+        subscriptionForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(subscriptionForm);
+            const nombre = formData.get('nombre');
+            const email = formData.get('email');
+            const password = formData.get('password');
+            
+            // Verificar la frase contraseña
+            const correctPassword = "La excelencia tiene un precio, y entre el bien y el mal, elijo ser humano";
+            
+            if (password.toLowerCase().trim() !== correctPassword.toLowerCase()) {
+                alert('La frase contraseña no es correcta. Lee atentamente la sección.');
+                return;
+            }
+            
+            // Crear email con los datos
+            const subject = 'Solicitud de suscripción - Círculo Interior';
+            const body = `Nombre: ${nombre}%0D%0AEmail: ${email}%0D%0AFrase: ${password}%0D%0A%0D%0ASolicitud de acceso al círculo interior de lectores.`;
+            
+            // Abrir cliente de correo
+            window.location.href = `mailto:simonferrer@tutanota.com?subject=${subject}&body=${body}`;
+            
+            // Mostrar mensaje de éxito
+            subscriptionSuccess.style.display = 'block';
+            subscriptionForm.reset();
+            
+            // Ocultar mensaje después de 5 segundos
+            setTimeout(() => {
+                subscriptionSuccess.style.display = 'none';
+            }, 5000);
+        });
+
+        // Formulario de contacto
+        const contactForm = document.getElementById('contactForm');
+        const contactSuccess = document.getElementById('contactSuccess');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(contactForm);
+            const nombre = formData.get('nombre');
+            const email = formData.get('email');
+            const mensaje = formData.get('mensaje');
+            
+            // Crear email
+            const subject = 'Contacto desde web - ' + nombre;
+            const body = `Nombre: ${nombre}%0D%0AEmail: ${email}%0D%0A%0D%0AMensaje:%0D%0A${mensaje}`;
+            
+            // Abrir cliente de correo
+            window.location.href = `mailto:simonferrer@tutanota.com?subject=${subject}&body=${body}`;
+            
+            // Mostrar mensaje de éxito
+            contactSuccess.style.display = 'block';
+            contactForm.reset();
+            
+            // Ocultar mensaje después de 5 segundos
+            setTimeout(() => {
+                contactSuccess.style.display = 'none';
+            }, 5000);
+        });
+
+        // Scroll suave para navegación
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
